@@ -4,6 +4,9 @@ src &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; --migration ser
 target &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  --containes a runnable jar file and configuration file. <br />
 
 how to run migration server?<br />
-
+1.git clone https://github.com/TaoXu00/migrationServer.git <br \>
+2.change configuration file if the folder Dir is different
+3.cd target 
+4.java -jar migrationServer.jar
 
 
