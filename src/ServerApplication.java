@@ -3,6 +3,7 @@ import java.io.FileInputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+import ServerInfoLog.MsgLog;
 import migrationServer.Server;
 
 public class ServerApplication {
@@ -11,8 +12,9 @@ public class ServerApplication {
          Server server=new Server();
          server.initializeFromConfigurationFileForJARFile();
       //    server.initializeFromConfigurationFile();
-         server.runServer();  
+        String subDir=args[0];
+        MsgLog.setSubLogDir(subDir);
+        server.runServer();
 	}
-	
 
 }
