@@ -19,4 +19,4 @@ It is the migration server which runs in each host, receive the command from SDN
 | logfileDir | Directory where logfile will be stored. |
 
 ## Compile and run instruction
-Refer to the instructions provided in [README_RUN](README_RUN.md]).
+Refer to the instructions provided in [README_RUN](README_RUN.md).
