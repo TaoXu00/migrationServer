@@ -91,7 +91,7 @@ public class ClientWorker extends Thread {
 			   startContainer(image,container);
 /**********************for test the migration**************h1 as the iperf client******************************************/
 			   startIperfServer();
-			   System.out.println("iperf server started...."+ getCurrentTime());
+			   writeTolog("iperf server started...."+ getCurrentTime());
 			   
 /***************************************************************************************************************************/
 			   break;
@@ -125,9 +125,9 @@ public class ClientWorker extends Thread {
 			    writeTolog("["+dest+"]send 'SUCCESS' msg to source host.");
 /***************First kill the server then restart the iperf server,only for test***************************************/
 			    killIperfServer();
-			    System.out.println("iperf server stoped...."+getCurrentTime());
+			    //System.out.println("iperf server stoped...."+getCurrentTime());
 			    startIperfServer();
-			    System.out.println("iperf server restarted...."+getCurrentTime());
+			    writeTolog("iperf server restarted...."+getCurrentTime());
 			    }
 			    else{
 			     dos.writeBytes("ERROR\n");
@@ -147,7 +147,7 @@ public class ClientWorker extends Thread {
 		   case "IperfClient":
 			   String IperfServer=parts[1];
 			   stertIperfClient(IperfServer);
-			   System.out.println("iperf client started...."+getCurrentTime());
+			   writeTolog("iperf client started...."+getCurrentTime());
 			   break;
 		   case "REC_SECINFO":
 			   String keyPair_X=parts[1];
@@ -169,7 +169,7 @@ public class ClientWorker extends Thread {
 			   String session_Id=parts[5].split(":")[1];
 			   ObjectInputStream objin=new ObjectInputStream(socket.getInputStream());
 			   HashMap<String,Integer> lantencyTable=(HashMap)objin.readObject(); 
-			   System.out.println("receive lantencyTable length:"+lantencyTable.size());
+			   writeTolog("receive lantencyTable length:"+lantencyTable.size());
 			  
 			   if(mode.equals("Digital_Fountain"))
 				   res=excuteDigitalFountain(randomNumber,lantencyTable,keyNumber,session_Id);
@@ -187,7 +187,7 @@ public class ClientWorker extends Thread {
 		}
 	private int excuteDigitalFountain(String randomNumber, HashMap<String, Integer> lantencyTable,int keyNumber,String session_id) throws Exception {
 		// TODO Auto-generated method stub
-		System.out.println("i am excuting Digital_Fpuntain");
+		writeTolog("i am excuting Digital_Fpuntain");
 		HashMap<String,Double> probability=generateProbabilityTable(lantencyTable);
 		HashMap<Range,String> checkupTable=generateCheckupTable(probability);
 		LinkedList<String> selectedhosts=selectedHosts(checkupTable,keyNumber);
@@ -237,12 +237,12 @@ public class ClientWorker extends Thread {
 		String res=generateHMacSHA256(key,data);
 		String num1=res.replaceAll("[^0-9]","");
 		String num;
-		System.out.println("Hash num:"+num1+" length:"+num1.length());
+		//System.out.println("Hash num:"+num1+" length:"+num1.length());
 		if(num1.length()>9)
 			num=num1.substring(0,9);
 		else
 			num=num1;
-		System.out.println("num:"+num);
+		//System.out.println("num:"+num);
 		int index=Integer.parseInt(num)%N;
 		return index;
 	}
@@ -266,7 +266,7 @@ public class ClientWorker extends Thread {
 		   Process p=r.exec(cmd);
 		   BufferedReader stdInput=new BufferedReader(new InputStreamReader(p.getInputStream()));
 		   String res=stdInput.readLine();
-		   System.out.println("response:"+res);
+		   //System.out.println("response:"+res);
 		   if(!res.equals("checkpoint")){
 			 log="["+src+"]Error:"+res;
 			 writeTolog(log);
@@ -302,7 +302,7 @@ public class ClientWorker extends Thread {
 		 ObjectOutputStream objOut=new ObjectOutputStream(socket.getOutputStream());
 		 KeyPair kp=Server.getKeyPair();
 		 objOut.writeObject(kp);
-		 System.out.println("send KeyPair with x="+kp.getX()+"y="+kp.getY());
+		 writeTolog("send KeyPair with x="+kp.getX()+"y="+kp.getY());
 		 socket.close();
 	}
 	
@@ -313,7 +313,7 @@ public class ClientWorker extends Thread {
 		while(keyNumber!=0){
 		   double num=Math.random();
 		   String host=getHost(num,checkupTable);
-		   System.out.println("Selected host:"+host);
+		  // System.out.println("Selected host:"+host);
 		   hosts.add(host);
 		   keyNumber--;
 		}
@@ -355,7 +355,7 @@ public class ClientWorker extends Thread {
 			double prob=(1.0/(double)entry.getValue())/sum;
 			//int pro=(int)prob*100;
 			probTable.put(entry.getKey(),prob);
-			System.out.println(entry.getKey()+" lantency "+entry.getValue()+" prob:"+prob);
+			//System.out.println(entry.getKey()+" lantency "+entry.getValue()+" prob:"+prob);
 		}
 		//return null;
 		return probTable;
@@ -391,7 +391,7 @@ public class ClientWorker extends Thread {
 		    clientOutPrintWriter.flush();
 		    ObjectInputStream objIn=new ObjectInputStream(clientSocket.getInputStream());
 		    kp=(KeyPair)objIn.readObject();
-		    System.out.println("get KeyPair:"+kp.getX()+" "+kp.getY());
+		    writeTolog("get KeyPair:"+kp.getX()+" "+kp.getY());
 		    /*String res=ClientIn.readLine(); 
 		    int x=Integer.parseInt(res.split(" ")[0]);
 		    int y=Integer.parseInt(res.split(" ")[1]);
@@ -528,7 +528,7 @@ public class ClientWorker extends Thread {
 	    File file=new File(path);
 	    if(!file.getParentFile().exists())
 	    	file.getParentFile().mkdirs();
-	    System.out.println(path);
+	    //System.out.println(path);
 	    FileOutputStream fos=new FileOutputStream(path);
 		while(filesize>0 &&(n=dis.read(buf,0,(int)Math.min(buf.length,filesize)))!=-1)
 		{
