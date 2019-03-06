@@ -3,7 +3,7 @@ It is the migration server which runs in each host, receive the command from SDN
 
 | Folder | Description |
 | --- | --- |
-| src | Lmigration server source code |
+| src | migration server source code |
 | target | containes a runnable jar file and configuration file. |
 
 ## Configuration file parameters
