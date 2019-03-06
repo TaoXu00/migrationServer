@@ -6,7 +6,7 @@ In order to compile the migration server:
 
 - download the source code
 
-  $ git clone https://github.com/TaoXu00/migrationServer
+  $ git clone https://github.com/TaoXu00/migrationServer_Mininet.git
   
 - generate .class files
 
